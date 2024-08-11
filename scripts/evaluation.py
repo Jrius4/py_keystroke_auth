@@ -10,17 +10,30 @@ PROCESSED_DATA_DIR = os.path.join('..', 'data', 'processed')
 def load_model(filepath):
     return joblib.load(filepath)
 
+# def load_features():
+#     features = []
+#     labels = []
+    
+#     files = os.listdir(PROCESSED_DATA_DIR)
+#     for file in files:
+#         feature_data = pd.read_csv(os.path.join(PROCESSED_DATA_DIR, file), index_col=0)
+#         features.append(feature_data.values)
+#         labels.append(1)  # Replace with actual labels
+    
+#     return np.array(features), np.array(labels)
+
 def load_features():
-    features = []
+    features = np.array([])
     labels = []
-    
     files = os.listdir(PROCESSED_DATA_DIR)
-    for file in files:
+    for file in files:  # Iterate over all processed feature files
         feature_data = pd.read_csv(os.path.join(PROCESSED_DATA_DIR, file), index_col=0)
-        features.append(feature_data.values)
-        labels.append(1)  # Replace with actual labels
-    
-    return np.array(features), np.array(labels)
+        features = np.append(features,feature_data.values) 
+        labels.extend([1] * feature_data.shape[0]) # Replace with actual labels in a real use case
+    T = features
+    J = np.array(labels)
+    X = T.reshape(-1,1)
+    return X,J
 
 def evaluate_model(model, X, y):
     y_pred = model.predict(X)
