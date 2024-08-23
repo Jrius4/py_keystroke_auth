@@ -1,0 +1,31 @@
+key,type,time
+i,keydown,5905
+i,keyup,6013
+ ,keydown,6256
+ ,keyup,6357
+l,keydown,6523
+l,keyup,6620
+o,keydown,6737
+o,keyup,6862
+v,keydown,7044
+v,keyup,7170
+e,keydown,7374
+e,keyup,7516
+ ,keydown,7746
+ ,keyup,7875
+f,keydown,8714
+f,keyup,8834
+o,keydown,8980
+o,keyup,9087
+o,keydown,9175
+o,keyup,9282
+t,keydown,9496
+t,keyup,9621
+b,keydown,10624
+b,keyup,10735
+a,keydown,10952
+a,keyup,11114
+l,keydown,11217
+l,keyup,11367
+l,keydown,12552
+l,keyup,12687

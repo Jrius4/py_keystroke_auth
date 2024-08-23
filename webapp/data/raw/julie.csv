@@ -1,0 +1,39 @@
+key,type,time
+p,keydown,48487
+p,keyup,48641
+e,keydown,48641
+e,keyup,48753
+t,keydown,48902
+t,keyup,49013
+e,keydown,49022
+r,keydown,49188
+e,keyup,49301
+r,keyup,49391
+ ,keydown,49995
+ ,keyup,50141
+p,keydown,50392
+p,keyup,50534
+e,keydown,50610
+e,keyup,50797
+r,keydown,50823
+r,keyup,51024
+t,keydown,52339
+t,keyup,52456
+e,keydown,52621
+r,keydown,52771
+e,keyup,52804
+r,keyup,52934
+ ,keydown,53581
+ ,keyup,53715
+p,keydown,54477
+p,keyup,54618
+e,keydown,54766
+e,keyup,54898
+r,keydown,55014
+r,keyup,55156
+t,keydown,55565
+t,keyup,55692
+e,keydown,55820
+r,keydown,55939
+e,keyup,56033
+r,keyup,56101

@@ -1,84 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Keystroke Authentication</title>
-    <script>
-        let keystrokes = [];
 
-        function recordKeystroke(event) {
-            keystrokes.push({
-                key: event.key,
-                type: event.type,
-                time: event.timeStamp
-            });
-        }
-
-        function recordInput(){
-            document.addEventListener('keydown', recordKeystroke);
-            document.addEventListener('keyup', recordKeystroke);
-            console.log({
-                keystrokes
-            })
-        }
-
-        
-
-        async function registerUser() {
-            const username = document.getElementById('username').value;
-            console.log('register',{username,keystrokes});
-            const response = await fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, keystrokes })
-            });
-            if (response.ok) {
-                alert('Registration successful!');
-            } else {
-                alert('Registration failed!');
-            }
-        }
-
-        async function loginUser() {
-            const username = document.getElementById('username').value;
-            const response = await fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, keystrokes })
-            });
-            if (response.ok) {
-                alert('Login successful!');
-            } else {
-                alert('Authentication failed!');
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}"/>
-</head>
-<body>
-    <div  class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-start">
-                <div class="col-md-12">
-                    <h1>Keystroke Authentication</h1>
-    <p>Enter your username and press the appropriate keystrokes to authenticate:</p>
-    <input class="form-control mb-3"  type="text" id="username" name="username" placeholder="Enter Username" />
-    <div class="form-group">
-        <textarea class="form-control mb-3" id="password" oninput="recordInput()" placeholder="Enter Password"></textarea>
-    </div>
-    <div class="row justify-content-evenly">
-        <button class="d-block col-md-4 btn btn-outline-primary" onclick="registerUser()">Register</button>
-        <button  class="d-block col-md-4  btn btn-outline-info"  onclick="loginUser()">Login</button>
-    </div>
-                </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+  </head>
+  <body>
+    <div class="navbar navbar-expand-lg fixed-top">
+      <div class="container-fluid">
+        <div class="row d-flex justify-content-start">
+          <div class="col-md-12">
+            <h1>Keystroke Authentication</h1>
+            <p>Enter your username and press the appropriate keystrokes to authenticate:</p>
+            <input class="form-control mb-3" type="text" id="username" name="username" placeholder="Enter Username" />
+            <div class="form-group">
+              <textarea class="form-control mb-3" id="password" placeholder="Enter Password"></textarea>
             </div>
+            <div class="row justify-content-evenly">
+              <button class="d-block col-md-4 btn btn-outline-primary" onclick="registerUser()">Register</button>
+              <button class="d-block col-md-4 btn btn-outline-info" onclick="loginUser()">Login</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    
-    
-</body>
+
+    <script>
+      let keystrokes = []
+      
+      function recordKeystroke(event) {
+        if(event.key === 'Tab'){
+          return;
+        }
+        keystrokes.push({
+          key: event.key,
+          type: event.type,
+          time: event.timeStamp
+        });
+        console.log({keystrokes})
+      }
+      
+      // Add event listener to capture keystrokes (keyup event)
+      document.getElementById('password').addEventListener('keyup', function (event) {
+        recordKeystroke(event)
+      })
+      document.getElementById('password').addEventListener('keydown', function (event) {
+        recordKeystroke(event)
+      })
+      
+      async function registerUser() {
+        const username = document.getElementById('username').value
+        console.log('register', { username, keystrokes })
+        const response = await fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, keystrokes })
+        })
+        if (response.ok) {
+          alert('Registration successful!')
+          window.location.reload();
+        } else {
+          alert('Registration failed!')
+          window.location.reload();
+
+        }
+      }
+      
+      async function loginUser() {
+        const username = document.getElementById('username').value
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, keystrokes })
+        })
+        if (response.ok) {
+          alert('Login successful!')
+        } else {
+          alert('Authentication failed!')
+        }
+      }
+    </script>
+  </body>
 </html>
